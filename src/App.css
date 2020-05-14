@@ -1,0 +1,30 @@
+main > * + * {
+  margin-top: 1rem;
+}
+
+form {
+  display: grid;
+  grid-gap: 0.5rem;
+}
+
+label {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  align-items: center;
+}
+
+input[type='text'] {
+  font-size: 0.8rem;
+  font-family: Dank Mono, monospace;
+  border: 2px solid black;
+  padding: 4px;
+}
+
+input[type='text']:focus {
+  outline: 0;
+  border: 2px dashed black;
+}
+
+[hidden] {
+  display: none;
+}
