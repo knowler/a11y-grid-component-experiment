@@ -205,6 +205,12 @@ function InteractiveGrid({columns = 1, data}) {
     }
   };
 
+  const handleKeyDown = event => {
+    if ([38, 40].indexOf(keyCode => keyCode === event.keyCode)) {
+      event.preventDefault();
+    }
+  };
+
   return (
     <>
       <div
@@ -213,6 +219,7 @@ function InteractiveGrid({columns = 1, data}) {
         role="grid"
         tabIndex={0}
         onKeyUp={handleKeyUp}
+        onKeyDown={handleKeyDown}
         onFocus={handleGridFocus}
         style={{'--templateColumns': `repeat(${columns}, 1fr)`}}
       >
