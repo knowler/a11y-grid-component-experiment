@@ -208,12 +208,20 @@ function InteractiveGrid({columns = 1, data}) {
   return (
     <>
       <div
+        aria-labelledby="grid-label"
+        aria-describedby="grid-description"
         role="grid"
         tabIndex={0}
         onKeyUp={handleKeyUp}
         onFocus={handleGridFocus}
         style={{'--templateColumns': `repeat(${columns}, 1fr)`}}
       >
+        <span id="grid-label" hidden>
+          Color Picker
+        </span>
+        <span id="grid-description" hidden>
+          Pick a colour from the palette.
+        </span>
         {grid.map((row, rowIndex) => (
           <div key={rowIndex} role="row">
             {row.map((cell, columnIndex) => (
