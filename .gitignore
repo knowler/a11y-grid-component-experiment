@@ -2,3 +2,6 @@
 /build
 .env*
 *.log*
+
+# Local Netlify folder
+.netlify

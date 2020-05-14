@@ -235,7 +235,7 @@ function InteractiveGrid({columns = 1, data}) {
           </div>
         ))}
       </div>
-      <div style={{whiteSpace: 'pre'}} hidden>
+      <div style={{whiteSpace: 'pre'}}>
         {JSON.stringify(
           {
             grid: context.grid.reduce((a, c, i) => [...a, c.map(({value}) => value)], []),

@@ -44,7 +44,7 @@ function App() {
 
   return (
     <main>
-      <form onBlur={applyConfig} hidden>
+      <form onBlur={applyConfig}>
         <label>
           <span>Columns</span>
           <input type="text" name="columns" value={form.columns} onChange={handleChange} />
