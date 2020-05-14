@@ -44,7 +44,12 @@ function App() {
 
   return (
     <main>
-      <form onBlur={applyConfig}>
+      <form
+        onBlur={applyConfig}
+        onKeyUp={event => {
+          if (event.keyCode === 13) applyConfig();
+        }}
+      >
         <label>
           <span>Columns</span>
           <input type="text" name="columns" value={form.columns} onChange={handleChange} />
