@@ -84,6 +84,7 @@ function gridReducer(state, action) {
 const init = state => state;
 
 function InteractiveGrid({columns = 1, data}) {
+  const gridRef = React.useRef();
   const grid = React.useMemo(
     () =>
       chunk(
@@ -113,22 +114,28 @@ function InteractiveGrid({columns = 1, data}) {
     });
   };
 
-  const handleGridFocus = event => {
-    dispatch({
-      type: 'MOVE_TO_START_OF_GRID',
-    });
-  };
-
   const handleKeyUp = event => {
     switch (event.keyCode) {
+      case 27: {
+        if (gridRef.current !== document.activeElement) {
+          gridRef.current.focus();
+        }
+        break;
+      }
       case 13: {
-        dispatch({
-          type: 'SELECT',
-          payload: {
-            row: Number(event.target.dataset.row),
-            column: Number(event.target.dataset.column),
-          },
-        });
+        if (gridRef.current === document.activeElement) {
+          dispatch({
+            type: 'MOVE_TO_START_OF_GRID',
+          });
+        } else {
+          dispatch({
+            type: 'SELECT',
+            payload: {
+              row: Number(event.target.dataset.row),
+              column: Number(event.target.dataset.column),
+            },
+          });
+        }
         break;
       }
       case 35: {
@@ -214,13 +221,13 @@ function InteractiveGrid({columns = 1, data}) {
   return (
     <>
       <div
+        ref={gridRef}
+        role="grid"
         aria-labelledby="grid-label"
         aria-describedby="grid-description"
-        role="grid"
         tabIndex={0}
         onKeyUp={handleKeyUp}
         onKeyDown={handleKeyDown}
-        onFocus={handleGridFocus}
         style={{'--templateColumns': `repeat(${columns}, 1fr)`}}
       >
         <span id="grid-label" hidden>
