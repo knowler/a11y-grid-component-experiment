@@ -52,11 +52,19 @@ function App() {
       >
         <label>
           <span>Columns</span>
-          <input type="text" name="columns" value={form.columns} onChange={handleChange} />
+          <input
+            type="number"
+            required
+            name="columns"
+            min={1}
+            max={10}
+            value={form.columns}
+            onChange={handleChange}
+          />
         </label>
         <label>
           <span>Data</span>
-          <input type="text" name="data" value={form.data} onChange={handleChange} />
+          <input type="text" required name="data" value={form.data} onChange={handleChange} />
         </label>
       </form>
       <InteractiveGrid {...config} />
