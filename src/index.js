@@ -27,7 +27,13 @@ function App() {
   const applyConfig = event => {
     setConfig({
       columns: String(form.columns),
-      data: uniq(form.data.split(', ')),
+      data: uniq(
+        form.data
+          .trim()
+          .replace(/,$/, '')
+          .split(',')
+          .map(text => text.trim()),
+      ),
     });
   };
 
