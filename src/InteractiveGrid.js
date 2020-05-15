@@ -79,7 +79,7 @@ function gridReducer(state, action) {
 
 const init = state => state;
 
-function InteractiveGrid({columns = 1, data}) {
+function InteractiveGrid({columns = 1, data = []}) {
   const gridRef = React.useRef();
   const grid = React.useMemo(
     () =>
