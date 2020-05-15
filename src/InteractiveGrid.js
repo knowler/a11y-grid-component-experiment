@@ -209,8 +209,24 @@ function InteractiveGrid({columns = 1, data = []}) {
   };
 
   const handleKeyDown = event => {
-    if ([38, 40].indexOf(keyCode => keyCode === event.keyCode)) {
+    const keysThatShouldPreventDefault = new Set([37, 38, 39, 40]);
+
+    /**
+     * Arrow keys’ defaults should be prevented
+     */
+    if (keysThatShouldPreventDefault.has(event.keyCode)) {
       event.preventDefault();
+    }
+
+    /**
+     * Tabbing from within should prevent default and focus the grid
+     */
+    if (
+      event.keyCode === 9 &&
+      context.grid.flat().findIndex(cell => cell.ref.current === event.target) > -1
+    ) {
+      event.preventDefault();
+      gridRef.current.focus();
     }
   };
 
