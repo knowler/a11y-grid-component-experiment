@@ -13,8 +13,6 @@ function gridReducer(state, action) {
         ...state,
         lastAction: action,
       };
-    } else {
-      console.log('doesn’t exist', row, column);
     }
 
     return state;
@@ -30,8 +28,6 @@ function gridReducer(state, action) {
         column,
         lastAction: action,
       };
-    } else {
-      console.log('doesn’t exist', row, column);
     }
 
     return state;
