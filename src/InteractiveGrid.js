@@ -11,6 +11,10 @@ function gridReducer(state, action) {
       coords.ref.current.focus();
       return {
         ...state,
+        focused: {
+          row,
+          column,
+        },
         lastAction: action,
       };
     }
@@ -24,8 +28,10 @@ function gridReducer(state, action) {
     if (coords) {
       return {
         ...state,
-        row,
-        column,
+        selected: {
+          row,
+          column,
+        },
         lastAction: action,
       };
     }
@@ -67,8 +73,11 @@ function gridReducer(state, action) {
     case 'UPDATE_GRID': {
       return {
         grid: action.payload,
-        row: 0,
-        column: 0,
+        selected: null,
+        focused: {
+          row: 0,
+          column: 0,
+        },
       };
     }
     default: {
@@ -93,8 +102,11 @@ function InteractiveGrid({columns = 1, data = []}) {
     gridReducer,
     {
       grid,
-      row: 0,
-      column: 0,
+      selected: null,
+      focused: {
+        row: 0,
+        column: 0,
+      },
     },
     init,
   );
@@ -259,7 +271,11 @@ function InteractiveGrid({columns = 1, data = []}) {
                 data-value={cell.value}
                 data-row={rowIndex}
                 data-column={columnIndex}
-                aria-selected={cell.value === grid[context.row][context.column].value}
+                aria-selected={
+                  grid[context.selected?.row] &&
+                  grid[context.selected.row][context.selected?.column] &&
+                  cell.value === grid[context.selected.row][context.selected.column].value
+                }
                 onClick={handleClick}
                 onFocus={e => e.stopPropagation()}
               >
@@ -273,10 +289,8 @@ function InteractiveGrid({columns = 1, data = []}) {
         {JSON.stringify(
           {
             grid: context.grid.reduce((a, c, i) => [...a, c.map(({value}) => value)], []),
-            selected: {
-              row: context.row,
-              column: context.row,
-            },
+            selected: context.selected,
+            focused: context.focused,
             lastAction: context.lastAction,
           },
           null,
