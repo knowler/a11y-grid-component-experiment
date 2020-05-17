@@ -132,9 +132,7 @@ function InteractiveGrid({columns = 1, data = []}) {
       }
       case 13: {
         if (gridRef.current === document.activeElement) {
-          dispatch({
-            type: 'MOVE_TO_START_OF_GRID',
-          });
+          grid[context.focused.row][context.focused.column].ref.current.focus();
         } else {
           dispatch({
             type: 'SELECT',
